@@ -1,9 +1,12 @@
 # HTML, CSS and HTML Training
 
+## WORK IN PROGRESS
+
 *What you will learn:*
 
  + The basics of HTML, CSS and JS
  + Build a dashboard like [this one](http://louisdecharson.github.io/report_EU_dataviz.html) or [this one](https://louisdecharson.github.io/covid-19/)
+ 
 
 *What you need:*
 

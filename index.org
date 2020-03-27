@@ -1,6 +1,6 @@
 #+TITLE: HTML + CSS + JS Crash Course
 #+OPTIONS: ^:{}
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="notes.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./notes.css" />
 
 /This course is based on:/
 + W3 Schools resources on their website \rightarrow [[https://www.w3schools.com/html/html_intro.asp][www.w3schools.com]]

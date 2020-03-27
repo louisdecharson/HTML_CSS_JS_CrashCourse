@@ -8,6 +8,10 @@
         <style>
          /* HERE IS OUR CSS */
 
+         body {
+             margin: 5%;
+         }
+
          
         </style>
 
@@ -18,20 +22,67 @@
         <h1>SFI Population Report</h1>
 
 
-        <p id="my_paragraph" onclick="make_it_blue(this)">This is a paragraph of text with inline CSS.</p>
+        <!-- <p id="my_paragraph" onclick="make_it_blue(this)">This is a paragraph of text with inline CSS.</p>
+        -->
 
+        <h4>Population Table</h4>
+        <table class="table table-hover" id="my_table">
+            <thead>
+                <tr>
+                    <th scope="col">Country</th>
+                    <th scope="col">Population</th>
+                    <th scope="col">Source</th>
+                </tr>
+            </thead>
+            
+            <tbody id="population_table_body">
+            </tbody>
 
+        </table>
 
+        
+        <!-- BOOTSTRAP JS -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         
 
+        <!-- D3.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js"></script>
+
+        <!-- SFI JS -->
         <script>
 
          function make_it_blue(element) {
              element.style.color = "blue";
          }
+
+         function populate_table(data) {
+
+             // Body
+             let html = '';
+
+             for (const row of data) {
+                 html += '<tr>';
+                 html += '<td>' + row['Country/Region'] + '<td/>';
+                 html += '<td>' + row['Population'] + '<td/>';
+                 html += '<td>' + row['Source'] + '<td/>';
+             }
+
+             $('#population_table_body').html(html);
+         }
+
+         let population_data = []; 
+
+         d3.csv('https://raw.githubusercontent.com/louisdecharson/covid-19/master/population_data.csv')
+           .then(function(d) {
+               population_data = d;
+               populate_table(population_data);
+           })
+           .catch(e => console.log(e))         
+
+         
+         
          
         </script>
         

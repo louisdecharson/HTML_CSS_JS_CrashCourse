@@ -4,6 +4,8 @@
         <!-- METADATA which is not displayed on the screen -->
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">        
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.15/c3.min.css" integrity="sha256-6keM3+sDUFwuiB+tXRq/HV8tqQYlvarrsoWkx53dSgY=" crossorigin="anonymous" />
         
         <style>
          /* HERE IS OUR CSS */
@@ -23,10 +25,17 @@
              text-transform: uppercase;
              margin-top: 1rem;
              cursor: pointer;
+             padding: 10px;
          }
          .active {
-             background-color: ##ebeff0;
+             background-color: #ebeff0;
+             border-radius: 20px;
          }
+
+         ul {
+             list-style: none;
+         }
+         
         </style>
 
     </head>
@@ -43,8 +52,8 @@
             <div class="row">
                 <nav class="col-3 sidebar flex-md-column flex-row">
                     <ul>
-                        <li class="sidebar-heading" onclick="display('#population_table')">Population Table</li>
-                        <li class="sidebar-heading" onclick="display('#population_graph')">Population Graph</li> 
+                        <li id="table_button" class="sidebar-heading" onclick="display('#table_button', '#population_table')">Population Table</li>
+                        <li id="graph_button" class="sidebar-heading" onclick="display('#graph_button', '#population_graph')">Population Graph</li> 
                     </ul>
                 </nav>
                 <div class="col-9 main_content">
@@ -83,16 +92,27 @@
         <!-- D3.js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js"></script>
 
+        <!-- C3.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.15/c3.min.js" integrity="sha256-c8Se556pPduNURww1xPQduyWV1LI/ARRt61o6LQreGw=" crossorigin="anonymous"></script>
+
         <!-- SFI JS -->
         <script>
 
          $('.content').hide(); // hide is a Jquery function that hides elements selected;
 
 
-         function display(element) {
+         function display(button, target) {
+             $('.active').each(function() {
+                 $(this).removeClass('active');
+             })
+             $(button).addClass('active');
              $('.content').hide();
-             $(element).show(); // show is jquery function that displays / show element selected;
+             $(target).show(); // show is jquery function that displays / show element selected;
+             //$(button).addClass('active'); // addClass is a JQuery function that add a class to the element selected
          }
+
+
+
          
          function make_it_blue(element) {
              element.style.color = "blue";
@@ -140,7 +160,7 @@
 
 
 
-         display('#population_table');
+         display('#table_button','#population_table');
          
          
         </script>

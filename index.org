@@ -6,12 +6,8 @@
 + W3 Schools resources on their website \rightarrow [[https://www.w3schools.com/html/html_intro.asp][www.w3schools.com]]
 + Book [[https://learning.oreilly.com/library/view/html-css/9781118206911/][HTML & CSS: Design and Build Websites]] by Jon Duckett
 
-* Syllabus
 
-1. Introduction on HTML, CSS, JS
-2. Hands-on 
-
-
+*Work in Progress*
 
 * Introduction to HTML, CSS, JS
 
@@ -75,17 +71,18 @@ Headings are defined with =<h1>= to =<h6>= tags. =<h1>= defines the most importa
 | Tags            | Meaning                       |
 |-----------------+-------------------------------|
 | ~<a href=""></a>~ | link                          |
-| <h1>            | heading                       |
-| <p>             | paragraph                     |
-| <ul>            | unordered list                |
-| <ol>            | ordered (numbered) list       |
-| <li>            | list item                     |
-| <button>        | button                        |
-| <div>           | division / section of text    |
-| <span>          | Used to group inline-elements |
-| <code>          | piece of computer code        |
-| <form>          | create a form for user input  |
-| <img>           | add an image                  |
+| ~<h1>~            | heading                       |
+| =<p>=             | paragraph                     |
+| =<ul>=            | unordered list                |
+| =<ol>=            | ordered (numbered) list       |
+| =<li>=            | list item                     |
+| =<button>=        | button                        |
+| =<div>=           | division / section of text    |
+| =<span>=          | Used to group inline-elements |
+| =<code>=          | piece of computer code        |
+| =<form>=          | create a form for user input  |
+| =<img>=           | add an image                  |
+|-----------------+-------------------------------|
 
 
 

@@ -149,7 +149,6 @@
              let data = population_data.filter(function(element) {
                  return element['Population'] > 100000000
              })
-             console.log(data.length);
              
              populate_table(data);
              
@@ -176,9 +175,7 @@
              
              return columns;
              
-         }
-
-         
+         }         
          
          let population_data = []; 
          d3.csv('https://raw.githubusercontent.com/louisdecharson/HTML_CSS_JS_CrashCourse/master/population_data.csv')
@@ -194,7 +191,8 @@
                    data: {
                        x: 'Years',
                        xFormat: '%Y',
-                       columns: prepare_data_graph(population_data)
+                       columns: prepare_data_graph(population_data),
+                       type: 'bar'
                    },
                    axis: {
                        x: {
@@ -212,8 +210,8 @@
 
 
          display('#table_button','#population_table');
-             
-             
+         
+         
         </script>
         
     </body>

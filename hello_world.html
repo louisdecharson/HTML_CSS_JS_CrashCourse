@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+         body {
+             margin: 10%;
+             background-color: #DA2727;
+             font-family: "Arial", sans-serif;
+         }
+         #container {
+             margin: auto;
+             color: #fff;
+             border: 1rem solid #fff;
+             padding: 1rem;
+         }
+         #text {
+             margin: auto;
+             text-transform: uppercase;
+             font-size: 10rem;
+             text-align: center;
+             font-style: italic;
+             font-weight: 700;
+         }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="text">
+                hello world
+            </div>
+        </div>
+        <script>
+         (function() {
+             document.onmousemove = handleMouseMove;
+             function handleMouseMove(event) {
+                 var eventDoc, doc, body;
+
+                 event = event || window.event; // IE-ism
+
+                if (event.pageX == null && event.clientX != null) {
+                     eventDoc = (event.target && event.target.ownerDocument) || document;
+                     doc = eventDoc.documentElement;
+                     body = eventDoc.body;
+
+                     event.pageX = event.clientX +
+               (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
+                     (doc && doc.clientLeft || body && body.clientLeft || 0);
+                     event.pageY = event.clientY +
+               (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
+                     (doc && doc.clientTop  || body && body.clientTop  || 0 );
+                 }
+
+                 let c = document.getElementById("container");
+                 let x = event.pageX + c.offsetWidth > screen.width ? screen.width - event.pageX : event.pageX;
+                 let y = event.pageY + c.offsetHeight > screen.height ? screen.height - event.pageY : event.pageY;
+                 // c.style.position = "absolute";
+                 // c.style.left = x + "px";
+                 // c.style.top = y + "px";
+                 c.style.color = "rgb(" + parseInt(255-x/screen.height * 255) + "," + parseInt(255-y/screen.width * 255) + "," + parseInt((x+y) % 255) + ")";
+             }
+         })();
+         let u = 0.6,
+             v = 0.6;
+         let timer2 = setInterval(function() {
+             u = Math.random() > 0.5 ? - Math.random() : Math.random();
+             v = Math.random() > 0.5 ? - Math.random() : Math.random();
+         }, 1000);
+         let timer = setInterval(function() {
+             let c = document.getElementById("container");
+             c.style.position = "absolute";
+             c.style.left = Math.min(screen.width - c.offsetWidth -100, Math.max(parseInt(c.style.left || (screen.width - c.offsetWidth)/2) * (1 + u*0.05), 100)) + "px";
+             c.style.top = Math.min(screen.height - c.offsetHeight -100, Math.max(parseInt(c.style.top || (screen.height - c.offsetHeight)/2) * (1 + v*0.05), 100)) + "px";
+         }, 100);
+        </script>
+    </body>
+</html>

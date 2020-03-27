@@ -67,7 +67,7 @@
                                 <tr>
                                     <th scope="col">Country</th>
                                     <th scope="col">Population</th>
-                                    <th scope="col">Source</th>
+                                    <th scope="col">Year</th>
                                 </tr>
                             </thead>
                             <tbody id="population_table_body">
@@ -124,14 +124,18 @@
 
          function populate_table(data) {
 
+             let data_2018 = data.filter(function(d) {
+                 return d['Year'] === '2018';
+             });
+
              // Body
              let html = '';
 
-             for (const row of data) {
+             for (const row of data_2018) {
                  html += '<tr>';
-                 html += '<td>' + row['Country/Region'] + '</td>';
+                 html += '<td>' + row['Country'] + '</td>';
                  html += '<td>' + row['Population'] + '</td>';
-                 html += '<td>' + row['Source'] + '</td>';
+                 html += '<td>' + row['Year'] + '</td>';
                  html += '</tr>';
              }
 
@@ -154,7 +158,7 @@
          
          
          let population_data = []; 
-         d3.csv('https://raw.githubusercontent.com/louisdecharson/covid-19/master/population_data.csv')
+         d3.csv('https://raw.githubusercontent.com/louisdecharson/HTML_CSS_JS_CrashCourse/master/population_data.csv')
            .then(function(d) {
                population_data = d;
                populate_table(population_data);

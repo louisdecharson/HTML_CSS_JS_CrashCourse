@@ -76,6 +76,10 @@
                     </div>
                     <div id="population_graph" class="content">
                         <h4 class="mt-4 mb-4">Population Graph</h4>
+
+                        <div id="chart"></div>
+
+                        
                     </div>
                 </div>
             </div>
@@ -150,7 +154,6 @@
          
          
          let population_data = []; 
-
          d3.csv('https://raw.githubusercontent.com/louisdecharson/covid-19/master/population_data.csv')
            .then(function(d) {
                population_data = d;
@@ -159,8 +162,20 @@
            .catch(e => console.log(e))         
 
 
-
          display('#table_button','#population_table');
+
+
+         // C3.js example
+
+         var chart = c3.generate({
+             bindto: '#chart',
+             data: {
+                 columns: [
+                     ['data1', 30, 200, 100, 400, 150, 250],
+                     ['data2', 50, 20, 10, 40, 15, 25]
+                 ]
+             }
+         });
          
          
         </script>

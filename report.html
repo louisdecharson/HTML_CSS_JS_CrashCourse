@@ -12,7 +12,21 @@
              margin: 5%;
          }
 
-         
+         .container {
+             max-width: 100% !important;
+         }
+         .sidebar {
+             margin-top: 1%;
+         }
+         .sidebar-heading {
+             font-size: 1rem;
+             text-transform: uppercase;
+             margin-top: 1rem;
+             cursor: pointer;
+         }
+         .active {
+             background-color: ##ebeff0;
+         }
         </style>
 
     </head>
@@ -25,20 +39,39 @@
         <!-- <p id="my_paragraph" onclick="make_it_blue(this)">This is a paragraph of text with inline CSS.</p>
         -->
 
-        <h4>Population Table</h4>
-        <table class="table table-hover" id="my_table">
-            <thead>
-                <tr>
-                    <th scope="col">Country</th>
-                    <th scope="col">Population</th>
-                    <th scope="col">Source</th>
-                </tr>
-            </thead>
-            
-            <tbody id="population_table_body">
-            </tbody>
+        <div class="container">
+            <div class="row">
+                <nav class="col-3 sidebar flex-md-column flex-row">
+                    <ul>
+                        <li class="sidebar-heading" onclick="display('#population_table')">Population Table</li>
+                        <li class="sidebar-heading" onclick="display('#population_graph')">Population Graph</li> 
+                    </ul>
+                </nav>
+                <div class="col-9 main_content">
 
-        </table>
+                    <div id="population_table" class="content">
+                        <h4 class="mt-4 mb-4">Population Table</h4>
+                        <button class="btn btn-primary mt-2 mb-2" onclick="filter_table()">Select country with more than 100m inhabitants</button>
+                        <button class="btn btn-secondary mt-2 mb-2" onclick="populate_table(population_data)">Reset</button>
+                        <table class="table table-hover" id="my_table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Country</th>
+                                    <th scope="col">Population</th>
+                                    <th scope="col">Source</th>
+                                </tr>
+                            </thead>
+                            <tbody id="population_table_body">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="population_graph" class="content">
+                        <h4 class="mt-4 mb-4">Population Graph</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 
         
         <!-- BOOTSTRAP JS -->
@@ -53,6 +86,14 @@
         <!-- SFI JS -->
         <script>
 
+         $('.content').hide(); // hide is a Jquery function that hides elements selected;
+
+
+         function display(element) {
+             $('.content').hide();
+             $(element).show(); // show is jquery function that displays / show element selected;
+         }
+         
          function make_it_blue(element) {
              element.style.color = "blue";
          }
@@ -64,14 +105,30 @@
 
              for (const row of data) {
                  html += '<tr>';
-                 html += '<td>' + row['Country/Region'] + '<td/>';
-                 html += '<td>' + row['Population'] + '<td/>';
-                 html += '<td>' + row['Source'] + '<td/>';
+                 html += '<td>' + row['Country/Region'] + '</td>';
+                 html += '<td>' + row['Population'] + '</td>';
+                 html += '<td>' + row['Source'] + '</td>';
+                 html += '</tr>';
              }
 
              $('#population_table_body').html(html);
          }
 
+
+
+         function filter_table() {
+
+             let data = population_data.filter(function(element) {
+                 return element['Population'] > 100000000
+             })
+             console.log(data.length);
+             
+             populate_table(data);
+             
+         }
+
+         
+         
          let population_data = []; 
 
          d3.csv('https://raw.githubusercontent.com/louisdecharson/covid-19/master/population_data.csv')
@@ -81,7 +138,9 @@
            })
            .catch(e => console.log(e))         
 
-         
+
+
+         display('#population_table');
          
          
         </script>

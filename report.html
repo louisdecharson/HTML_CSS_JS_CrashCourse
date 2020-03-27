@@ -155,33 +155,65 @@
              
          }
 
+         function prepare_data_graph(data) {
+
+             // d => d['Country']
+             // is the same as function(d) { return d['Country']}
+             
+             let countries = d3.set(data.map(d => d['Country'])).values().filter(d => d != 'United States')
+             // map takes a function as an argument and apply the function to every element of the array
+             // d3.set() creates a set (a list of unique elements) out of the list
+             // .values() return the values of the set as a list
+
+             let years = d3.set(data.map(d => d['Year'])).values().sort()
+             
+             let columns = [['Years',...years]] // > ['Years', 2010, 2011, 2012, 2013, 2014, 2015, ...]
+
+             for (const country of countries) {
+                 let data_filtered = data.filter(d => d['Country'] == country).map(d => parseInt(d['Population']));
+                 columns.push([country, ...data_filtered])
+             }
+             
+             return columns;
+             
+         }
+
          
          
          let population_data = []; 
          d3.csv('https://raw.githubusercontent.com/louisdecharson/HTML_CSS_JS_CrashCourse/master/population_data.csv')
            .then(function(d) {
                population_data = d;
+
+               // Populate the table
                populate_table(population_data);
+
+               // We create a graph
+               var chart = c3.generate({
+                   bindto: '#chart',
+                   data: {
+                       x: 'Years',
+                       xFormat: '%Y',
+                       columns: prepare_data_graph(population_data)
+                   },
+                   axis: {
+                       x: {
+                           type: 'timeseries',
+                           tick: {
+                               format: '%Y'
+                           }
+                       }
+                   }
+               });
+               
+               
            })
            .catch(e => console.log(e))         
 
 
          display('#table_button','#population_table');
-
-
-         // C3.js example
-
-         var chart = c3.generate({
-             bindto: '#chart',
-             data: {
-                 columns: [
-                     ['data1', 30, 200, 100, 400, 150, 250],
-                     ['data2', 50, 20, 10, 40, 15, 25]
-                 ]
-             }
-         });
-         
-         
+             
+             
         </script>
         
     </body>
